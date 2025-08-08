@@ -1,2 +1,609 @@
-# Resume-webpage
-My professional resume and portfolio, showcasing my experience and skills in Quality Assurance, data analysis, and Artificial Intelligence.
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waleed Ansari Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=sans-serif,Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Custom Tailwind Configuration for the theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-navy': '#1D2A4B',
+                        'secondary-white': '#F4F7FB',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            padding-top: 4.5rem; 
+            background: linear-gradient(to bottom right, #D6E0F0, #A0B2D4);
+        }
+        /* New class to prevent background scrolling when modal is open */
+        body.modal-open {
+            overflow: hidden;
+        }
+        .modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+        .skill-bar {
+            background-color: #e5e7eb;
+            height: 10px;
+            border-radius: 9999px;
+        }
+        /* Initial state of the skill bar fill */
+        .skill-level-fill {
+            height: 100%;
+            background-color: #1f2937;
+            border-radius: 9999px;
+            width: 0; /* Start with zero width */
+            transition: width 1s ease-out; /* Add a smooth transition */
+        }
+        /* Keyframe animation for the navigation button click effect */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+        .nav-button-clicked {
+            animation: pulse 0.3s ease-in-out;
+        }
+        .nav-button {
+            transition: all 0.2s ease-in-out;
+            transform-origin: center;
+        }
+        /* Style for the SVG avatar to ensure it's centered and colored correctly */
+        .avatar-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        /* Mobile menu styling */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Fixed Navigation Header -->
+    <nav class="fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300 ease-in-out">
+        <div class="max-w-5xl mx-auto flex justify-between items-center px-4 py-3 md:py-4">
+            <!-- Logo with increased font size and letter-spacing -->
+            <a href="#" class="text-2xl md:text-3xl font-extrabold text-primary-navy tracking-wider">M.W.A</a>
+            
+            <!-- Desktop Navigation Links (hidden on mobile) -->
+            <ul class="hidden md:flex space-x-2 text-sm font-medium">
+                <li><a href="#about" class="nav-button bg-primary-navy text-secondary-white px-3 py-1.5 rounded-full font-bold hover:bg-primary-navy/80 active:bg-primary-navy/90">About</a></li>
+                <li><a href="#work-experience" class="nav-button bg-primary-navy text-secondary-white px-3 py-1.5 rounded-full font-bold hover:bg-primary-navy/80 active:bg-primary-navy/90">Experience</a></li>
+                <li><a href="#education" class="nav-button bg-primary-navy text-secondary-white px-3 py-1.5 rounded-full font-bold hover:bg-primary-navy/80 active:bg-primary-navy/90">Education</a></li>
+                <li><a href="#certifications" class="nav-button bg-primary-navy text-secondary-white px-3 py-1.5 rounded-full font-bold hover:bg-primary-navy/80 active:bg-primary-navy/90">Certifications</a></li>
+                <li><a href="#skills" class="nav-button bg-primary-navy text-secondary-white px-3 py-1.5 rounded-full font-bold hover:bg-primary-navy/80 active:bg-primary-navy/90">Skills</a></li>
+                <li><a href="#projects" class="nav-button bg-primary-navy text-secondary-white px-3 py-1.5 rounded-full font-bold hover:bg-primary-navy/80 active:bg-primary-navy/90">Projects</a></li>
+            </ul>
+
+            <!-- Mobile Menu Button (hamburger) visible on small screens -->
+            <button id="mobile-menu-button" class="md:hidden p-2 text-primary-navy rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-navy transition-colors duration-200">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Panel (Hidden by default) -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-white md:hidden">
+        <div class="flex justify-between items-center px-4 py-3 border-b">
+            <a href="#" class="text-2xl font-extrabold text-primary-navy tracking-wider">M.W.A</a>
+            <button id="mobile-menu-close" class="p-2 text-gray-500 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-300">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col items-center gap-6 p-8 text-xl font-medium">
+            <li><a href="#about" class="nav-button-mobile text-primary-navy hover:text-blue-500 transition-colors">About</a></li>
+            <li><a href="#work-experience" class="nav-button-mobile text-primary-navy hover:text-blue-500 transition-colors">Experience</a></li>
+            <li><a href="#education" class="nav-button-mobile text-primary-navy hover:text-blue-500 transition-colors">Education</a></li>
+            <li><a href="#certifications" class="nav-button-mobile text-primary-navy hover:text-blue-500 transition-colors">Certifications</a></li>
+            <li><a href="#skills" class="nav-button-mobile text-primary-navy hover:text-blue-500 transition-colors">Skills</a></li>
+            <li><a href="#projects" class="nav-button-mobile text-primary-navy hover:text-blue-500 transition-colors">Projects</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative bg-white pt-20 pb-40 md:pt-32 md:pb-52 flex items-center justify-center min-h-[60vh]">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <!-- New SVG avatar for professional/analytical personality -->
+            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mx-auto mb-6 bg-primary-navy/10 flex items-center justify-center p-4">
+                <svg class="avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="100" height="100" rx="50" ry="50" fill="white" />
+                    <circle cx="50" cy="50" r="40" fill="#E5E7EB"/>
+                    <path d="M 25 70 Q 35 50 50 50 T 75 70" stroke="#1f2937" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M 30 75 L 30 35 Q 35 30 40 35 L 40 75" stroke="#1f2937" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M 50 75 L 50 25 Q 55 20 60 25 L 60 75" stroke="#1f2937" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M 70 75 L 70 45 Q 75 40 80 45 L 80 75" stroke="#1f2937" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">Muhammad Waleed Ansari</h1>
+            <p class="text-base md:text-lg text-gray-600 mb-6">Quality Assurance Executive | Data Analyst | Bachelor in Business Administration</p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 text-gray-600">
+                <a href="mailto:APPD622@gmail.com" class="hover:text-primary-navy transition-colors">
+                    <span class="font-semibold mr-1">📧</span> APPD622@gmail.com
+                </a>
+                <a href="https://linkedin.com/in/waleetistic" class="hover:text-primary-navy transition-colors">
+                    <span class="font-semibold mr-1">🔗</span> linkedin.com/in/waleetistic
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Reduced vertical spacing between sections -->
+    <main class="relative -mt-24 md:-mt-32 max-w-5xl mx-auto px-4 space-y-12 md:space-y-16">
+
+        <section id="about" class="bg-white p-8 md:p-12 rounded-xl shadow-md scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-4">About Me</h2>
+            <p class="text-gray-700 leading-relaxed">
+                Driven by a commitment to continuous improvement, I merge analytical thinking with strategic business acumen to enhance operational systems and empower data-informed decision-making. My goal is to build scalable processes that drive growth and inspire teams.
+            </p>
+        </section>
+
+        <section id="work-experience" class="bg-white p-8 md:p-12 rounded-xl shadow-md scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-8">Work Experience</h2>
+            <div id="work-experience-list" class="space-y-8 md:space-y-12">
+                <!-- Content injected by JavaScript -->
+            </div>
+        </section>
+
+        <section id="education" class="bg-white p-8 md:p-12 rounded-xl shadow-md scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-8">Education</h2>
+            <div id="education-list" class="space-y-8 md:space-y-12">
+                <!-- Content injected by JavaScript -->
+            </div>
+        </section>
+
+        <section id="certifications" class="bg-white p-8 md:p-12 rounded-xl shadow-md scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-8">Certifications</h2>
+            <div id="certifications-list" class="space-y-6">
+                <!-- Content injected by JavaScript -->
+            </div>
+        </section>
+
+        <section id="skills" class="bg-white p-8 md:p-12 rounded-xl shadow-md scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-8">Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Technical Skills</h3>
+                    <div id="technical-skills-list" class="space-y-4">
+                        <!-- Technical skills injected by JavaScript -->
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Soft Skills</h3>
+                    <div id="soft-skills-list" class="space-y-4">
+                        <!-- Soft skills injected by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="bg-white p-8 md:p-12 rounded-xl shadow-md scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-8">Projects</h2>
+            <div id="project-gallery" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Content injected by JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal-backdrop bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content transform scale-95">
+            <div class="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+                <h3 id="modal-title" class="text-xl font-bold text-gray-800"></h3>
+                <button id="modal-close" class="text-gray-500 hover:text-gray-800 font-bold text-2xl">&times;</button>
+            </div>
+            <div class="p-6">
+                <p id="modal-subtitle" class="text-sm text-gray-500 mb-4 font-medium"></p>
+                <div id="modal-description" class="text-gray-600 space-y-4"></div>
+                <div id="modal-details" class="mt-6"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const skillsData = {
+                technical: [
+                    { skill: 'Data Cleaning & Transformation', level: 85 },
+                    { skill: 'Business Strategy Development', level: 78 },
+                    { skill: 'Operational Efficiency Analysis', level: 80 },
+                    { skill: 'Market & Competitor Research', level: 75 },
+                    { skill: 'Strategic Report Writing', level: 72 },
+                    { skill: 'Test Automation', level: 80 }
+                ],
+                soft: [
+                    { skill: 'Problem Solving & Decision-Making', level: 95 },
+                    { skill: 'Team Collaboration & Leadership', level: 90 },
+                    { skill: 'Strategic Thinking', level: 90 },
+                    { skill: 'Critical Thinking / QA', level: 95 },
+                    { skill: 'Communication & Empathy', level: 90 },
+                ]
+            };
+
+            const workData = [
+                {
+                    title: 'The Ridgeline Marketing',
+                    subtitle: 'Quality Assurance Executive',
+                    date: '2023 – Present',
+                    details: [
+                        'Oversaw and enhanced quality assurance processes within a fast-paced sales environment.',
+                        'Developed customized quality audit templates, increasing review consistency by 35%.',
+                        'Analyzed customer interactions to identify training gaps and coached agents to optimize performance.',
+                        'Played a pivotal role in reducing client complaints by implementing real-time monitoring and feedback loops.',
+                        'Led quality audits for outbound sales calls, ensuring adherence to scripts and compliance.',
+                        'Collaborated with management to train representatives and improve overall customer experience.',
+                        'Proactively communicated client-side trends and behavioral insights to improve lead strategy.'
+                    ]
+                },
+                {
+                    title: 'The Ridgeline Marketing',
+                    subtitle: 'Customer & Sales Representative Executive',
+                    date: 'Mar 2023 – May 2023',
+                    details: [
+                        'Delivered high conversion rates with an optimized sales pitch, consistently exceeding performance targets.',
+                        'Built and maintained strong, trust-based rapport with clients, significantly enhancing lead quality and customer retention.',
+                        'Actively participated in product knowledge training sessions to provide accurate and effective solutions to potential customers.',
+                        'Managed and tracked sales pipelines, ensuring timely follow-ups and a smooth customer journey.'
+                    ]
+                },
+                {
+                    title: 'The Hidden Finds',
+                    subtitle: 'Data Analyst',
+                    date: 'Jun 2022 - Jul 2022',
+                    details: [
+                        'Prospected and analyzed potential client websites offering cybersecurity services to identify and report security weaknesses.',
+                        'Aggregated raw website data into a structured spreadsheet, meticulously cleaning it by removing duplicates and standardizing key information.',
+                        'Collaborated with the admin team and respective departments by delivering accurate, pre-qualified data for targeted outreach and client engagement.'
+                    ]
+                }
+            ];
+
+            const educationData = [
+                {
+                    title: 'IQRA UNIVERSITY',
+                    subtitle: 'Bachelor of Business Administration',
+                    date: '2020 – Present',
+                    details: ['Currently enrolled in a comprehensive business program with core focus areas including management, marketing, finance, organizational behavior, and business strategy. Developed strong analytical and leadership skills through coursework and applied academic projects.']
+                },
+                {
+                    title: 'JINNAH GOVERNMENT COLLEGE',
+                    subtitle: 'Intermediate in Pre-Engineering',
+                    date: '2018 – 2020',
+                    details: ['Studied core science and analytical subjects such as Mathematics, Physics, and Chemistry, building a foundation of logical reasoning and problem-solving techniques.']
+                },
+                 {
+                    title: 'METROPOLITAN SCHOOL',
+                    date: '2017 – 2018',
+                    subtitle: 'Matriculation in Computer Science',
+                    details: ['Completed a comprehensive curriculum that provided a solid foundation in computer science and other core academic subjects like Mathematics and English.']
+                }
+            ];
+
+            const certificationsData = [
+                {
+                    name: 'Programming for Everybody (Getting Started with Python)',
+                    issuer: 'Coursera, University of Michigan',
+                    date: '2022',
+                    link: 'https://coursera.org/share/487383a17e0892a0149021297e68222a',
+                    description: "This course provided a fundamental introduction to Python programming, covering the basics of how to construct a program, handle data, and write code to solve real-world problems. It laid the groundwork for my understanding of programming logic and data structures.",
+                    skills: ['Python Programming', 'Data Structures', 'Logical Thinking', 'Basic Syntax', 'Problem Solving'],
+                    imageUrl: 'https://placehold.co/150x110/d1d5db/4b5563?text=Certificate:+Python'
+                }
+            ];
+
+            const projectsData = [
+                {
+                    title: 'Strategic Business Analysis – Lucky Cement',
+                    subtitle: 'In-depth strategic management case study',
+                    description: "This project was a comprehensive evaluation of <strong>Lucky Cement's</strong> operations, market position, and financial performance within Pakistan's cement sector. Using strategic tools such as <strong>SWOT</strong> and <strong>Porter's Five Forces</strong>, I analyzed the company’s core strengths and vulnerabilities and proposed three transformative initiatives.",
+                    details: [
+                        'Sustainable manufacturing practices',
+                        'Innovative supply chain optimization',
+                        'Digital market expansion strategies'
+                    ],
+                    conclusion: 'The final report offered a practical, forward-looking roadmap aimed at sustainable growth and enhanced market leadership. This project highlights my ability to synthesize complex business data into strategic, actionable outcomes.'
+                },
+                {
+                    title: 'Supply Chain Optimization & Logistics Analysis',
+                    subtitle: 'Strategic Report for Automotive Manufacturing',
+                    description: 'This report provides a detailed analysis of the supply chain for <strong>Honda Atlas</strong>. It maps the flow of raw materials, components, and finished goods, from suppliers to final customers. The analysis highlights key logistical challenges, such as inventory management and supplier relationships, and proposes solutions to enhance efficiency and reduce costs.',
+                    details: [
+                        'Proposed a new inventory management system to reduce holding costs by 15%',
+                        'Developed a framework for supplier performance evaluation',
+                        'Simulated logistics network optimizations to improve delivery times'
+                    ],
+                    conclusion: 'The project demonstrates my ability to apply theoretical supply chain concepts to a real-world company, identifying critical vulnerabilities and proposing actionable, data-driven strategies for improvement.'
+                },
+                {
+                    title: 'Corporate Sustainability & Ethical Governance Report',
+                    subtitle: 'A Framework for Environmental Responsibility',
+                    description: 'This report explores the ethical dimensions of corporate responsibility in addressing climate change. It examines the moral obligations of businesses in reducing their carbon footprint, investing in sustainable practices, and advocating for environmental policy. The paper discusses various ethical frameworks and applies them to case studies of companies responding to climate challenges.',
+                    details: [
+                        'Analyzed ethical frameworks like utilitarianism and deontology in a corporate context',
+                        'Examined case studies of companies with successful and unsuccessful sustainability initiatives',
+                        'Developed a governance model for integrating environmental, social, and governance (ESG) factors'
+                    ],
+                    conclusion: 'This project showcases my critical thinking and research skills, demonstrating an understanding of complex ethical issues and the ability to articulate a well-reasoned argument for corporate social responsibility.'
+                },
+                {
+                    title: 'Historical Philosophical Frameworks & Modern Thought',
+                    subtitle: 'A Comprehensive Research Analysis',
+                    description: 'This research paper is a comprehensive overview of key philosophical movements and their impact on modern thought. The report traces the evolution of ideas from ancient Greek philosophy through to contemporary ethical and political theories. It examines the contributions of influential thinkers and analyzes how their concepts have shaped our understanding of logic, ethics, and the human condition.',
+                    details: [
+                        'Analyzed the influence of Socratic and Platonic thought on modern Western philosophy',
+                        'Traced the development of empiricism and rationalism from the Enlightenment to today',
+                        'Examined the impact of existentialist ideas on 20th-century literature and psychology'
+                    ],
+                    conclusion: 'The report highlights my strong research and writing skills, as well as my ability to synthesize complex historical and philosophical information into a clear and coherent narrative.'
+                },
+                {
+                    title: 'AI-Assisted Digital Portfolio Development',
+                    subtitle: 'A modern approach to professional branding',
+                    description: "This portfolio was developed with the assistance of advanced AI tools, including Gemini and ChatGPT, to streamline the process of content generation, code structure, and aesthetic design. The project demonstrates a forward-thinking approach to problem-solving and an ability to leverage powerful, new technologies to achieve professional outcomes efficiently.",
+                    details: [
+                        'Leveraging AI for rapid prototyping and iterative design',
+                        'Generating content and code with AI assistance',
+                        'Demonstrating proficiency in modern technology'
+                    ],
+                    conclusion: 'This project showcases my ability to adopt and master innovative tools for practical, professional applications, creating a functional and polished digital presence.'
+                }
+            ];
+            
+            const renderWorkExperience = () => {
+                const container = document.getElementById('work-experience-list');
+                const workHtml = workData.map(item => `
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900">${item.title}</h3>
+                        <p class="text-sm text-gray-500">${item.subtitle} | ${item.date}</p>
+                        <ul class="list-disc list-inside mt-4 ml-4 space-y-2 text-gray-600">
+                            ${item.details.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+                `).join('');
+                container.innerHTML = workHtml;
+            };
+
+            const renderEducation = () => {
+                const container = document.getElementById('education-list');
+                const educationHtml = educationData.map(item => `
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900">${item.title}</h3>
+                        <p class="text-sm text-gray-500">${item.subtitle} | ${item.date}</p>
+                        <p class="mt-2 text-gray-600">${item.details[0]}</p>
+                    </div>
+                `).join('');
+                container.innerHTML = educationHtml;
+            };
+
+            const renderCertifications = () => {
+                const container = document.getElementById('certifications-list');
+                container.innerHTML = certificationsData.map(cert => `
+                    <div class="flex flex-col md:flex-row gap-6 items-start">
+                        <div class="flex-grow">
+                            <h4 class="text-xl font-semibold text-gray-900">
+                                <a href="${cert.link}" target="_blank" class="text-blue-600 hover:underline hover:text-blue-800 transition-colors">${cert.name}</a>
+                            </h4>
+                            <p class="text-sm text-gray-500 mt-1">${cert.issuer}</p>
+                            <p class="mt-2 text-gray-600">${cert.description}</p>
+                            <p class="mt-2 text-sm font-medium text-gray-700">Skills Gained:</p>
+                            <ul class="list-disc list-inside ml-4 mt-1 space-y-1 text-gray-600">
+                                ${cert.skills.map(skill => `<li>${skill}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <img src="${cert.imageUrl}" alt="Certificate Preview" class="flex-shrink-0 w-36 h-28 rounded-lg shadow-md border border-gray-200 object-cover">
+                    </div>
+                `).join('');
+            };
+
+            // This function now just renders the skill bars without applying the final width
+            const renderSkills = () => {
+                const technicalContainer = document.getElementById('technical-skills-list');
+                const softContainer = document.getElementById('soft-skills-list');
+                
+                const technicalHtml = skillsData.technical.map(s => `
+                    <div class="skill-bar-container" data-skill-level="${s.level}">
+                        <p class="text-sm font-medium mb-1">${s.skill}</p>
+                        <div class="skill-bar">
+                            <div class="skill-level-fill"></div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const softHtml = skillsData.soft.map(s => `
+                    <div class="skill-bar-container" data-skill-level="${s.level}">
+                        <p class="text-sm font-medium mb-1">${s.skill}</p>
+                        <div class="skill-bar">
+                            <div class="skill-level-fill"></div>
+                        </div>
+                    </div>
+                `).join('');
+
+                technicalContainer.innerHTML = technicalHtml;
+                softContainer.innerHTML = softHtml;
+            };
+
+            const renderProjects = () => {
+                const gallery = document.getElementById('project-gallery');
+                gallery.innerHTML = projectsData.map((project, index) => `
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer project-card" data-index="${index}">
+                        <h4 class="font-bold text-lg text-gray-800">${project.title}</h4>
+                        <p class="text-gray-500 text-sm mt-1">${project.subtitle}</p>
+                    </div>
+                `).join('');
+            };
+
+            const setupModal = () => {
+                const modal = document.getElementById('project-modal');
+                const closeButton = document.getElementById('modal-close');
+                const backdrop = modal;
+                const body = document.body;
+
+                document.querySelectorAll('.project-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const projectIndex = card.dataset.index;
+                        const project = projectsData[projectIndex];
+                        
+                        document.getElementById('modal-title').textContent = project.title;
+                        document.getElementById('modal-subtitle').textContent = project.subtitle;
+                        document.getElementById('modal-description').innerHTML = project.description;
+
+                        const detailsContainer = document.getElementById('modal-details');
+                        let detailsHTML = '';
+                        if(project.details && project.details.length > 0) {
+                            detailsHTML += '<h4 class="font-semibold text-gray-700 mb-2">Key Initiatives:</h4>';
+                            detailsHTML += '<ul class="list-disc list-inside space-y-1 text-gray-600">';
+                            project.details.forEach(d => {
+                                detailsHTML += `<li>${d}</li>`;
+                            });
+                            detailsHTML += '</ul>';
+                        }
+                        if(project.conclusion) {
+                            detailsHTML += `<p class="mt-4 text-gray-600 italic">${project.conclusion}</p>`;
+                        }
+                        detailsContainer.innerHTML = detailsHTML;
+
+                        // Add class to body to prevent scrolling
+                        body.classList.add('modal-open');
+                        modal.classList.remove('hidden');
+                        setTimeout(() => {
+                            backdrop.classList.remove('opacity-0');
+                            modal.querySelector('.modal-content').classList.add('scale-95');
+                        }, 10);
+                    });
+                });
+
+                const closeModal = () => {
+                    backdrop.classList.add('opacity-0');
+                    modal.querySelector('.modal-content').classList.add('scale-95');
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                        // Remove class from body to re-enable scrolling
+                        body.classList.remove('modal-open');
+                    }, 300);
+                };
+
+                closeButton.addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal();
+                    }
+                });
+            };
+
+            // This new function sets up the IntersectionObserver for the animations
+            const setupSkillAnimations = () => {
+                const skillBars = document.querySelectorAll('.skill-bar-container');
+
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        // Check if the skill bar is in the viewport
+                        if (entry.isIntersecting) {
+                            const bar = entry.target;
+                            const level = bar.getAttribute('data-skill-level');
+                            const fill = bar.querySelector('.skill-level-fill');
+                            
+                            // Set the width to trigger the CSS transition
+                            fill.style.width = level + '%';
+                            
+                            // Stop observing once it has animated
+                            observer.unobserve(bar);
+                        }
+                    });
+                }, { threshold: 0.6 }); // Trigger when 60% of the element is visible
+
+                skillBars.forEach(bar => observer.observe(bar));
+            };
+            
+            const setupMobileMenu = () => {
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileMenuClose = document.getElementById('mobile-menu-close');
+                const mobileMenu = document.getElementById('mobile-menu');
+                const navLinks = document.querySelectorAll('.nav-button-mobile');
+                const body = document.body;
+
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.add('open');
+                    body.classList.add('modal-open');
+                });
+
+                mobileMenuClose.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    body.classList.remove('modal-open');
+                });
+                
+                // Close the menu when a link is clicked
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('open');
+                        body.classList.remove('modal-open');
+                        
+                        const targetId = link.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+            };
+
+            // Smooth scrolling for desktop navigation links
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Add the click animation class
+                    button.classList.add('nav-button-clicked');
+                    
+                    // Remove the class after the animation duration
+                    setTimeout(() => {
+                        button.classList.remove('nav-button-clicked');
+                    }, 300);
+
+                    const targetId = button.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            renderWorkExperience();
+            renderEducation();
+            renderCertifications();
+            renderSkills();
+            renderProjects();
+            setupModal();
+            setupSkillAnimations(); // Call the new animation function
+            setupMobileMenu(); // Call the new mobile menu setup function
+        });
+    </script>
+</body>
+</html>
